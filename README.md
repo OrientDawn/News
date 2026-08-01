@@ -4,6 +4,10 @@ The Orient Dawn News Center has now been fully developed. The project is built o
 
 The project adopts a pure static serverless architecture, which does not require backend programs and database support. It can be deployed through static files alone, and has the advantages of convenient deployment, stable access, and low maintenance costs.
 
+<br>
+
  - Project author: RuiWang
  - Project version: V1.0.0
  - Programming languages: HTML, CSS, JavaScript, EJS (Embedded JavaScript)
+
+## Quick Deployment
