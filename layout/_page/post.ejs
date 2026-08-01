@@ -1,0 +1,91 @@
+<div class="container-wide">
+    <div class="reading-progress">
+        <div class="progress-bar" id="progress-bar"></div>
+    </div>
+
+    <%# article %>
+    <article class="post-wrap">
+        <header class="article-header-card">
+            <div class="article-category-bar">
+                <% page.categories.forEach(item => { %>
+                    <a href="<%- url_for(item.path) %>" class="article-category-tag"><%- item.name %></a>
+                <% }) %>
+            </div>
+            <h1 class="post-title"><%= page.title %></h1>
+            <div class="article-meta-row">
+                <% if(theme.post_author_enable && config.author){ %>
+                    <span class="article-author">
+                        <span class="meta-icon"><i class="fas fa-user"></i></span>
+                        <span><%- config.author %></span>
+                    </span>
+                <% } %>
+                <% if(page.date && theme.post_date_enable){ %>
+                    <span class="article-date">
+                        <span class="meta-icon"><i class="fas fa-calendar"></i></span>
+                        <span><%- date(page.date, theme.date_format) %></span>
+                    </span>
+                <% } %>
+            </div>
+        </header>
+
+        <div class="post-content article-content">
+            <%- page.content %>
+        </div>
+
+        <% if(theme.post_copyright_enable){ %>
+            <section class="copyright-notice">
+                <div class="notice-header">
+                    <span class="notice-icon"><i class="fas fa-copyright"></i></span>
+                    <span>版权声明</span>
+                </div>
+                <div class="notice-content">
+                    <p>本文由 <strong><%- config.author %></strong> 原创发布，全文文字、配图、数据、版式等全部内容知识产权归属启明曙光科技有限公司，受著作权法、民法典及相关国际公约保护，未经我方书面授权，任何机构、媒体、个人不得转载、摘编、篡改、商用发布。</p>
+                    <p>原文链接：<a href="<%- page.permalink %>"><%- page.permalink %></a></p>
+                </div>
+            </section>
+        <% } %>
+
+        <section class="post-tags article-tags">
+            <div>
+                <span class="tags-label">标签：</span>
+                <span class="tags-list">
+                    <% if(page.tags.length!==0){%>
+                    <% page.tags.forEach(item=>{ %>
+                        <a href="<%- url_for(item.path) %>" class="tag-item"><%- item.name %></a>
+                    <% }) %>
+                    <% } else { %>
+                        <span class="no-tags">暂无标签</span>
+                    <% } %>
+                </span>
+            </div>
+        </section>
+
+        <section class="article-nav">
+            <div class="nav-section">
+                <span class="nav-label"><i class="fas fa-arrow-left"></i> 上一篇</span>
+                <% if(post.prev){ %>
+                    <a class="nav-link prev" rel="prev" href="<%- url_for(post.prev.path)%>">
+                        <span class="nav-title"><%- post.prev.title%></span>
+                    </a>
+                <% } else { %>
+                    <span class="nav-empty">没有了</span>
+                <% } %>
+            </div>
+            <div class="nav-section">
+                <span class="nav-label">下一篇 <i class="fas fa-arrow-right"></i></span>
+                <% if(post.next){ %>
+                    <a class="nav-link next" rel="next" href="<%- url_for(post.next.path)%>">
+                        <span class="nav-title"><%- post.next.title%></span>
+                    </a>
+                <% } else { %>
+                    <span class="nav-empty">没有了</span>
+                <% } %>
+            </div>
+        </section>
+
+        <section class="article-actions">
+            <a href="javascript:window.history.back();" class="action-btn btn-back"><i class="fas fa-arrow-left"></i> 返回</a>
+            <a href="<%- config.root %>" class="action-btn btn-home"><i class="fas fa-home"></i> 首页</a>
+        </section>
+    </article>
+</div>

@@ -1,0 +1,59 @@
+<div class="post-wrap archive-page">
+    <div class="archive-header">
+        <h1 class="archive-title">新闻动态</h1>
+        <div class="archive-search-box">
+            <i class="fas fa-search"></i>
+            <input type="text" id="archive-search-input" placeholder="搜索新闻..." class="search-input">
+        </div>
+    </div>
+
+    <div class="year-nav">
+        <span class="year-nav-label">按年份筛选：</span>
+        <div class="year-nav-list">
+            <% var years = {}; %>
+            <% site.posts.each(function(post) { %>
+                <% years[post.date.year()] = true; %>
+            <% }) %>
+            <button class="year-btn" data-year="all">全部</button>
+            <% Object.keys(years).sort().reverse().forEach(function(year, index) { %>
+                <button class="year-btn<%= index === 0 ? ' active' : '' %>" data-year="<%= year %>"><%= year %>年</button>
+            <% }) %>
+        </div>
+    </div>
+
+    <div id="archive-content">
+        <% var last_year = ''; %>
+        <% site.posts.sort('date', 'desc').each(function (post) { %>
+            <% var cur_year = post.date.year(); %>
+
+            <% if(last_year !== cur_year){ %>
+                <div class="archive-year-bar" data-year="<%= cur_year %>">
+                    <span class="year-icon"><i class="fas fa-calendar-alt"></i></span>
+                    <span class="year-text"><%- cur_year %>年</span>
+                    <span class="year-count">(<%= site.posts.filter(function(p) { return p.date.year() === cur_year; }).length %>)</span>
+                </div>
+            <% last_year = cur_year; } %>
+
+            <article class="archive-news-card" data-year="<%= cur_year %>">
+                <div class="news-category">
+                    <% post.categories.forEach(item => { %>
+                        <span class="category-tag"><%- item.name %></span>
+                    <% }) %>
+                </div>
+                <h3 class="news-title">
+                    <a href="<%- url_for(post.path) %>"><%= post.title %></a>
+                </h3>
+                <div class="news-meta">
+                    <span class="news-date"><%- date(post.date, theme.date_format) %></span>
+                    <span class="news-author"><%- config.author %></span>
+                </div>
+                <p class="news-excerpt"><%- post.excerpt || post.content.substring(0, 120) + '...' %></p>
+            </article>
+        <% }) %>
+    </div>
+
+    <div id="no-results" class="no-results" style="display: none;">
+        <i class="fas fa-search"></i>
+        <p>没有找到匹配的新闻</p>
+    </div>
+</div>

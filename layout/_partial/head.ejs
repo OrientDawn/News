@@ -1,0 +1,61 @@
+<meta charset="UTF-8">
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<% if(config.author){ %>
+    <meta name="author" content="<%- config.author %>">
+<% } %>
+<% if(config.subtitle){ %>
+    <meta name="subtitle" content="<%- config.subtitle %>">
+<% } %>
+<% if(page.description || config.description){ %>
+    <meta name="description" content="<%- page.description || config.description %>">
+<% } %>
+<% if(page.keywords || config.keywords){ %>
+    <meta name="keywords" content="<%- page.keywords || config.keywords %>">
+<% } %>
+<%
+var title = page.title;
+
+if (is_archive()){
+    title = '新闻归档';
+
+    if (is_month()){
+        title += ': ' + page.year + '/' + page.month;
+    } else if (is_year()){
+        title += ': ' + page.year;
+    }
+} else if (is_category()){
+    title = '分类: ' + page.category;
+} else if (is_tag()){
+    title = '标签: ' + page.tag;
+}
+%>
+<title><% if (title){ %><%= title %> | <% } %><%= config.title %></title>
+
+<%# SEO: canonical / robots / Open Graph / Twitter Card / JSON-LD %>
+<%- partial('_partial/seo') %>
+
+<%# favicon %>
+<% if (theme.favicon){ %>
+    <link rel="icon" href="<%- url_for(theme.favicon) %>">
+<% } %>
+
+<%# Font Awesome CSS %>
+<link rel="stylesheet" href="<%- url_for('/js/fontawesome-free-6.5.2-web/css/all.min.css') %>">
+
+<%# Tailwind CSS %>
+<script src="<%- url_for('/js/tailwindcss.js') %>"></script>
+
+<%# css list %>
+<% if (theme.stylesheets !== undefined && theme.stylesheets.length > 0) { %>
+    <% theme.stylesheets.forEach(url => { %>
+    <link rel="stylesheet" href="<%- url_for(url) %>">
+    <% }); %>
+<% } %>
+<%# javascript list %>
+<% if (theme.scripts !== undefined && theme.scripts.length > 0) { %>
+    <% theme.scripts.forEach(url => { %>
+    <script src="<%- url_for(url) %>"></script>
+    <% }); %>
+<% } %>

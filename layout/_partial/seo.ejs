@@ -1,0 +1,297 @@
+<%
+/* ============================================================
+ * SEO Partial - 启明曙光新闻中心
+ * 提供：canonical / robots / Open Graph / Twitter Card
+ *       article 元数据 / JSON-LD 结构化数据
+ * ============================================================ */
+
+var seo = theme.seo || {};
+var siteUrl = (config.url || '').replace(/\/$/, '');
+var pageUrl = siteUrl + (config.root || '/') + (page.path || '');
+pageUrl = pageUrl.replace(/([^:])\/{2,}/g, '$1/');
+if (pageUrl.indexOf('http') !== 0) { pageUrl = siteUrl + pageUrl; }
+
+/* --- 标题 --- */
+var pageTitle = page.title || '';
+if (is_archive()) {
+    pageTitle = '新闻归档';
+    if (is_month()) { pageTitle += ': ' + page.year + '/' + page.month; }
+    else if (is_year()) { pageTitle += ': ' + page.year; }
+} else if (is_category()) {
+    pageTitle = '分类: ' + page.category;
+} else if (is_tag()) {
+    pageTitle = '标签: ' + page.tag;
+}
+
+/* --- 描述 --- */
+function stripHtml(str) {
+    return (str || '').replace(/<[^>]+>/g, '').replace(/\s+/g, ' ').trim();
+}
+var description = page.description || page.excerpt || '';
+if (!description && page.content) {
+    description = stripHtml(page.content).substring(0, 160);
+}
+if (!description) { description = config.description || ''; }
+
+/* --- 关键词 --- */
+var keywords = page.keywords || '';
+if (!keywords && page.tags && page.tags.length) {
+    var kws = [];
+    page.tags.forEach(function (t) { kws.push(t.name); });
+    keywords = kws.join(',');
+}
+if (!keywords) { keywords = config.keywords || ''; }
+
+/* --- 配图（og:image / twitter:image） --- */
+var ogImage = '';
+if (page.cover) {
+    ogImage = page.cover;
+} else if (page.photos && page.photos.length) {
+    ogImage = page.photos[0];
+} else if (page.content) {
+    var imgMatch = page.content.match(/<img[^>]+src=["']([^"']+)["']/i);
+    if (imgMatch) { ogImage = imgMatch[1]; }
+}
+if (ogImage && ogImage.indexOf('http') !== 0) {
+    ogImage = siteUrl + (config.root || '/') + ogImage.replace(/^\/+/, '');
+}
+if (!ogImage && seo.default_og_image) {
+    ogImage = siteUrl + (config.root || '/') + seo.default_og_image.replace(/^\/+/, '');
+}
+
+/* --- 页面类型 --- */
+var ogType = 'website';
+if (is_post()) { ogType = 'article'; }
+
+/* --- robots 策略 --- */
+var robots = seo.robots || 'index, follow';
+// 归档/分类/标签的翻页页码避免重复内容
+if ((is_archive() || is_category() || is_tag()) && page.current > 1) {
+    robots = 'noindex, follow';
+}
+%>
+
+<%# ============ canonical ============ %>
+<link rel="canonical" href="<%= pageUrl %>">
+
+<%# ============ RSS / Sitemap 自动发现 ============ %>
+<% if (theme.seo && theme.seo.feed !== false) { %>
+<link rel="alternate" type="application/atom+xml" title="<%= config.title %>" href="<%= siteUrl %><%= config.root %>atom.xml">
+<% } %>
+<link rel="sitemap" type="application/xml" title="Sitemap" href="<%= siteUrl %><%= config.root %>sitemap.xml">
+
+<%# ============ robots ============ %>
+<meta name="robots" content="<%= robots %>">
+<% if (config.url && config.url.indexOf('http://') === 0) { %>
+<meta name="referrer" content="no-referrer-when-downgrade">
+<% } %>
+
+<%# ============ Open Graph ============ %>
+<meta property="og:type" content="<%= ogType %>">
+<meta property="og:title" content="<%= pageTitle || config.title %>">
+<meta property="og:description" content="<%= description %>">
+<meta property="og:url" content="<%= pageUrl %>">
+<meta property="og:site_name" content="<%= config.title %>">
+<meta property="og:locale" content="<%= (config.language || 'zh-cn').replace('-', '_') %>">
+<% if (ogImage) { %>
+<meta property="og:image" content="<%= ogImage %>">
+<% if (is_post()) { %>
+<meta property="og:image:alt" content="<%= pageTitle %>">
+<% } %>
+<% } %>
+
+<%# ============ 文章专属 OG 元数据 ============ %>
+<% if (is_post()) { %>
+    <% if (page.date) { %>
+<meta property="article:published_time" content="<%= date(page.date, 'YYYY-MM-DDTHH:mm:ssZ') %>">
+    <% } %>
+    <% if (page.updated) { %>
+<meta property="article:modified_time" content="<%= date(page.updated, 'YYYY-MM-DDTHH:mm:ssZ') %>">
+    <% } %>
+    <% if (config.author) { %>
+<meta property="article:author" content="<%= config.author %>">
+    <% } %>
+    <% if (page.categories && page.categories.length) { %>
+        <% page.categories.forEach(function (cat) { %>
+<meta property="article:section" content="<%= cat.name %>">
+        <% }) %>
+    <% } %>
+    <% if (page.tags && page.tags.length) { %>
+        <% page.tags.forEach(function (tag) { %>
+<meta property="article:tag" content="<%= tag.name %>">
+        <% }) %>
+    <% } %>
+<% } %>
+
+<%# ============ Twitter Card ============ %>
+<meta name="twitter:card" content="<%= ogImage ? (seo.twitter_card || 'summary_large_image') : 'summary' %>">
+<meta name="twitter:title" content="<%= pageTitle || config.title %>">
+<meta name="twitter:description" content="<%= description %>">
+<% if (ogImage) { %>
+<meta name="twitter:image" content="<%= ogImage %>">
+<% } %>
+<% if (seo.twitter_site) { %>
+<meta name="twitter:site" content="<%= seo.twitter_site %>">
+<% } %>
+<% if (seo.twitter_creator) { %>
+<meta name="twitter:creator" content="<%= seo.twitter_creator %>">
+<% } %>
+
+<%# ============ JSON-LD 结构化数据 ============ %>
+<% if (is_post()) { %>
+    <%# 文章结构化数据 %>
+    <%
+    var articleTags = [];
+    if (page.tags && page.tags.length) {
+        page.tags.forEach(function (t) { articleTags.push(t.name); });
+    }
+    var articleSection = '';
+    if (page.categories && page.categories.length) {
+        articleSection = page.categories.first().name;
+    }
+    %>
+<script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "NewsArticle",
+    "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "<%= pageUrl %>"
+    },
+    "headline": "<%= (pageTitle || '').replace(/"/g, '\\"') %>",
+    "description": "<%= description.replace(/"/g, '\\"') %>",
+    "image": {
+        "@type": "ImageObject",
+        "url": "<%= ogImage || (siteUrl + (config.root || '/') + (theme.logo || '/image/logo.png').replace(/^\/+/, '')) %>"
+    },
+    "datePublished": "<%= page.date ? date(page.date, 'YYYY-MM-DDTHH:mm:ssZ') : '' %>",
+    "dateModified": "<%= (page.updated || page.date) ? date(page.updated || page.date, 'YYYY-MM-DDTHH:mm:ssZ') : '' %>",
+    "author": {
+        "@type": "Organization",
+        "name": "<%= (config.author || config.title || '').replace(/"/g, '\\"') %>"
+    },
+    "publisher": {
+        "@type": "Organization",
+        "name": "<%= (config.title || '').replace(/"/g, '\\"') %>",
+        "logo": {
+            "@type": "ImageObject",
+            "url": "<%= siteUrl + (config.root || '/') + (theme.logo || '/image/logo.png').replace(/^\/+/, '') %>"
+        }
+    }<% if (articleSection) { %>,
+    "articleSection": "<%= articleSection.replace(/"/g, '\\"') %>"<% } %><% if (articleTags.length) { %>,
+    "keywords": "<%= articleTags.join(', ').replace(/"/g, '\\"') %>"<% } %>
+}
+</script>
+
+    <%# 面包屑导航结构化数据 %>
+    <%
+    var crumbList = [];
+    crumbList.push({ name: '首页', url: siteUrl + (config.root || '/') });
+    if (articleSection) {
+        var catItem = page.categories.first();
+        crumbList.push({ name: catItem.name, url: siteUrl + (config.root || '/') + catItem.path });
+    }
+    crumbList.push({ name: pageTitle, url: pageUrl });
+    %>
+<script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+        <% crumbList.forEach(function (item, idx) { %>
+        {
+            "@type": "ListItem",
+            "position": <%= idx + 1 %>,
+            "name": "<%= item.name.replace(/"/g, '\\"') %>",
+            "item": "<%= item.url %>"
+        }<% if (idx < crumbList.length - 1) { %>,<% } %>
+        <% }) %>
+    ]
+}
+</script>
+
+<% } else if (is_category()) { %>
+    <%# 分类页面包屑 %>
+<script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+        {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "首页",
+            "item": "<%= siteUrl + (config.root || '/') %>"
+        },
+        {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "分类",
+            "item": "<%= siteUrl + (config.root || '/') %>categories/"
+        },
+        {
+            "@type": "ListItem",
+            "position": 3,
+            "name": "<%= (page.category || '').replace(/"/g, '\\"') %>",
+            "item": "<%= pageUrl %>"
+        }
+    ]
+}
+</script>
+
+<% } else if (is_tag()) { %>
+    <%# 标签页面包屑 %>
+<script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+        {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "首页",
+            "item": "<%= siteUrl + (config.root || '/') %>"
+        },
+        {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "标签",
+            "item": "<%= siteUrl + (config.root || '/') %>tags/"
+        },
+        {
+            "@type": "ListItem",
+            "position": 3,
+            "name": "<%= (page.tag || '').replace(/"/g, '\\"') %>",
+            "item": "<%= pageUrl %>"
+        }
+    ]
+}
+</script>
+
+<% } else if (is_home() || is_page()) { %>
+    <%# 站点级结构化数据：WebSite + Organization %>
+<script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "name": "<%= (config.title || '').replace(/"/g, '\\"') %>",
+    "description": "<%= (config.description || '').replace(/"/g, '\\"') %>",
+    "url": "<%= siteUrl + (config.root || '/') %>",
+    "inLanguage": "<%= config.language || 'zh-cn' %>",
+    "publisher": {
+        "@type": "Organization",
+        "name": "<%= (config.title || '').replace(/"/g, '\\"') %>"
+    }
+}
+</script>
+<script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "<%= (config.title || '').replace(/"/g, '\\"') %>",
+    "url": "<%= siteUrl + (config.root || '/') %>",
+    "description": "<%= (config.description || '').replace(/"/g, '\\"') %>",
+    "logo": "<%= siteUrl + (config.root || '/') + (theme.logo || '/image/logo.png').replace(/^\/+/, '') %>"
+}
+</script>
+<% } %>

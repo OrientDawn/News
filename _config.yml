@@ -1,0 +1,29 @@
+navname: 启明曙光新闻中心
+
+nav:
+  首页: /
+  新闻动态: /archives
+
+favicon: /favicon.ico
+logo: /image/logo.png
+
+post_author_enable: true
+post_date_enable: true
+page_title_enable: true
+post_copyright_enable: true
+
+date_format: YYYY-MM-DD
+time_format: HH:mm:ss
+
+stylesheets:
+  - /css/style.css
+
+scripts:
+  - /js/script.js
+
+seo:
+  robots: index, follow
+  default_og_image: /image/logo.png
+  twitter_card: summary_large_image
+  twitter_site: ''
+  twitter_creator: ''

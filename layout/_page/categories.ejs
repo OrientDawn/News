@@ -1,0 +1,42 @@
+<div class="container">
+    <div class="page-header">
+        <div class="page-header-icon">
+            <i class="fas fa-layer-group"></i>
+        </div>
+        <div class="page-header-info">
+            <h1 class="archive-title">新闻分类</h1>
+            <p class="archive-subtitle">浏览不同类别的新闻内容</p>
+        </div>
+    </div>
+
+    <div class="categories-grid">
+        <% site.categories.each(function (cat) { %>
+            <a href="<%- url_for(cat.path) %>" class="category-card">
+                <div class="category-icon">
+                    <% if (cat.name === '公司动态') { %>
+                        <i class="fas fa-building"></i>
+                    <% } else if (cat.name === '行业资讯') { %>
+                        <i class="fas fa-newspaper"></i>
+                    <% } else if (cat.name === '通知公告') { %>
+                        <i class="fas fa-bell"></i>
+                    <% } else if (cat.name === '技术分享') { %>
+                        <i class="fas fa-code"></i>
+                    <% } else if (cat.name === '产品发布') { %>
+                        <i class="fas fa-box"></i>
+                    <% } else if (cat.name === '企业文化') { %>
+                        <i class="fas fa-heart"></i>
+                    <% } else { %>
+                        <i class="fas fa-folder"></i>
+                    <% } %>
+                </div>
+                <h3><%- cat.name %></h3>
+                <div class="category-info">
+                    <span class="category-count"><%- cat.length %> 篇文章</span>
+                    <% if (cat.posts.first()) { %>
+                        <span class="category-date">最近更新：<%- date(cat.posts.first().date, 'YYYY-MM-DD') %></span>
+                    <% } %>
+                </div>
+            </a>
+        <% }) %>
+    </div>
+</div>

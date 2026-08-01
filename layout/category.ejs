@@ -1,0 +1,5 @@
+<% if (is_category()) { %>
+    <%- partial('_page/category', {pagination: config.category, index: true}) %>
+<% } else { %>
+    <%- partial('_page/categories', {pagination: config.category, index: true}) %>
+<% } %>

@@ -1,0 +1,40 @@
+<%# single tag page%>
+<div class="container">
+    <div class="page-header">
+        <div class="page-header-icon">
+            <i class="fas fa-tag"></i>
+        </div>
+        <div class="page-header-info">
+            <h1 class="archive-title"><%- page.tag %></h1>
+            <p class="archive-subtitle">浏览「<%- page.tag %>」标签下的所有新闻</p>
+        </div>
+    </div>
+
+    <div class="news-section">
+        <% if (page.posts.length > 0) { %>
+            <div class="news-grid">
+                <% page.posts.each(function (post) { %>
+                    <article class="news-card">
+                        <!--
+                        <div class="news-category">
+                            <% post.categories.forEach(item => { %>
+                                <span class="category-tag"><%- item.name %></span>
+                            <% }) %>
+                        </div>
+                        -->
+                        <h3 class="news-title">
+                            <a href="<%- url_for(post.path) %>"><%= post.title %></a>
+                        </h3>
+                        <div class="news-meta">
+                            <span class="news-date"><%- date(post.date, theme.date_format) %></span>
+                        </div>
+                        <p class="news-excerpt"><%- post.excerpt || post.content.substring(0, 120) + '...' %></p>
+                    </article>
+                <% }) %>
+            </div>
+            <%- partial('_partial/paginator') %>
+        <% } else { %>
+            <div class="no-news">暂无新闻内容</div>
+        <% } %>
+    </div>
+</div>
