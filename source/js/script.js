@@ -174,5 +174,72 @@ document.ready(
 
             statNumbers.forEach(num => observer.observe(num));
         }
+
+        // ===== 文章页:复制链接 / 微信二维码 / 回到顶部 =====
+        const shareToast = document.getElementById('share-toast');
+        let toastTimer = null;
+        const showToast = (msg) => {
+            if (!shareToast) return;
+            if (msg) shareToast.textContent = msg;
+            shareToast.classList.add('show');
+            clearTimeout(toastTimer);
+            toastTimer = setTimeout(() => shareToast.classList.remove('show'), 2200);
+        };
+
+        const copyBtn = document.querySelector('.share-copy');
+        if (copyBtn) {
+            copyBtn.addEventListener('click', async () => {
+                const url = copyBtn.getAttribute('data-url') || window.location.href;
+                try {
+                    if (navigator.clipboard && navigator.clipboard.writeText) {
+                        await navigator.clipboard.writeText(url);
+                    } else {
+                        const ta = document.createElement('textarea');
+                        ta.value = url;
+                        ta.style.position = 'fixed';
+                        ta.style.opacity = '0';
+                        document.body.appendChild(ta);
+                        ta.select();
+                        document.execCommand('copy');
+                        document.body.removeChild(ta);
+                    }
+                    showToast('链接已复制到剪贴板');
+                } catch (err) {
+                    showToast('复制失败,请手动复制');
+                }
+            });
+        }
+
+        const wechatBtn = document.querySelector('.share-wechat');
+        const wechatQr = document.getElementById('wechat-qr');
+        if (wechatBtn && wechatQr) {
+            const qrImg = wechatQr.querySelector('img');
+            wechatBtn.addEventListener('click', (e) => {
+                e.preventDefault();
+                const url = wechatBtn.getAttribute('data-url') || window.location.href;
+                const isHidden = wechatQr.hasAttribute('hidden');
+                if (isHidden) {
+                    if (qrImg && !qrImg.src) {
+                        qrImg.src = `https://api.qrserver.com/v1/create-qr-code/?size=140x140&margin=8&data=${encodeURIComponent(url)}`;
+                    }
+                    wechatQr.removeAttribute('hidden');
+                } else {
+                    wechatQr.setAttribute('hidden', '');
+                }
+            });
+            document.addEventListener('click', (e) => {
+                if (!wechatQr.hasAttribute('hidden') && !wechatBtn.contains(e.target) && !wechatQr.contains(e.target)) {
+                    wechatQr.setAttribute('hidden', '');
+                }
+            });
+        }
+
+        const backTopBtn = document.getElementById('btn-back-to-top');
+        if (backTopBtn) {
+            backTopBtn.addEventListener('click', (e) => {
+                e.preventDefault();
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            });
+        }
     }
 );
