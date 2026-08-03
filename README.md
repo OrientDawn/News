@@ -8,7 +8,3 @@ The project adopts a pure static serverless architecture, which does not require
  - Project author: RuiWang
  - Project version: V1.0.0 (Hexo 7.3.0、nodejs  v16.20.2)
  - Programming languages: HTML, CSS, JavaScript, EJS (Embedded JavaScript)
-
-<img width="1272" height="614" alt="{0DD8ABA0-E98A-45C9-9304-B16C99F68CF3}" src="https://github.com/user-attachments/assets/2bfad384-a260-4513-85c4-f8e91349ba1e" />
-
-<img width="1264" height="686" alt="{35DF31EA-80BB-4647-A1C1-8554BAAD1CED}" src="https://github.com/user-attachments/assets/d933308b-4859-4320-9e53-e998c918fd73" />
