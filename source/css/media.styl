@@ -42,7 +42,9 @@
   .copyright-notice,
   .article-tags,
   .article-nav,
-  .article-actions
+  .article-actions,
+  .related-posts,
+  .article-share
     margin-left 0
     margin-right 0
     width 100%
@@ -90,17 +92,17 @@
     padding-right 0.75rem
 
   .hero-section
-    padding 1.5rem 0
-    margin-bottom 1.5rem
+    padding 2.5rem 1rem
+    margin-bottom 2rem
     background transparent
     &:before, &:after
       display none
     h1
-      font-size 1.8rem
+      font-size 2.2rem
     p
-      font-size 1.05rem
+      font-size 1.15rem
     .brand-logo
-      max-width 150px
+      max-width 320px
 
   .category-quick-nav
     flex-wrap wrap
@@ -180,18 +182,36 @@
         width 100%
 
   .article-header-card
-    padding 1.5rem 0
-    max-width 100%
+    padding 2.25rem 1.5rem 2rem
+    margin-bottom 2rem
+    .header-eyebrow
+      margin-bottom 1rem
+      .eyebrow-line
+        width 32px
+      .eyebrow-text
+        font-size 0.72rem
     .post-title
-      font-size 1.5rem
+      font-size 2.2rem
+      margin-bottom 1.1rem
+    .header-ornament
+      margin-bottom 1.25rem
+      .ornament-line
+        width 24px
     .article-meta-row
-      gap 1rem
-      flex-direction column
-      align-items center
+      gap 1.1rem
+      padding-top 1.1rem
+    .article-author, .article-date, .article-reading
+      font-size 0.875rem
+      .meta-icon
+        width 24px
+        height 24px
+        font-size 0.75rem
 
   .article-content
-    padding 1.25rem
+    padding 1.5rem
     border-radius 8px
+    & > p:first-of-type
+      font-size 1.05rem
     h2
       font-size 1.3rem
       margin-top 1.5rem
@@ -199,6 +219,12 @@
       font-size 1.15rem
     p
       line-height 1.75
+    blockquote
+      padding 1.2rem 1.2rem 1.2rem 2.6rem
+      &:before
+        left 0.8rem
+        top 0.9rem
+        font-size 1.2rem
     table
       display block
       width 100%
@@ -209,12 +235,24 @@
       white-space nowrap
 
   .copyright-notice
-    padding 1.25rem
+    padding 1.25rem 1.25rem 1.25rem 3.8rem
+    .notice-icon-wrap
+      left 0.8rem
+      top 1rem
+      width 2.1rem
+      height 2.1rem
+      font-size 1rem
   .article-tags
     padding 1.25rem
+    .tags-label
+      font-size 0.9rem
 
   .article-nav
     grid-template-columns 1fr
+    .nav-section
+      min-height auto
+      &.nav-next
+        text-align left
 
   .article-actions
     flex-direction column
@@ -222,6 +260,21 @@
     .action-btn
       width 100%
       text-align center
+
+  .related-posts
+    .related-grid
+      grid-template-columns repeat(auto-fit, minmax(160px, 1fr))
+      gap 0.75rem
+
+  .article-share
+    .share-label
+      display flex
+      margin-bottom 0.6rem
+      margin-right 0
+    .share-buttons
+      gap 0.5rem
+    .wechat-qr
+      right 1rem
 
   .categories-grid
     grid-template-columns 1fr
@@ -234,6 +287,8 @@
 
   .post-wrap
     padding-top 1rem
+  article.post-wrap
+    padding-top 0
 
   .year-nav
     padding 0.8rem 1rem
@@ -298,13 +353,13 @@
     padding-right 0.5rem
 
   .hero-section
-    padding 1rem 0
+    padding 2rem 1rem
     h1
-      font-size 1.5rem
+      font-size 1.9rem
     p
-      font-size 0.95rem
+      font-size 1.1rem
     .brand-logo
-      max-width 110px
+      max-width 180px
 
   .category-quick-nav
     gap 0.5rem
@@ -357,28 +412,57 @@
       transform none
 
   .article-header-card
-    padding 1.25rem 0
+    padding 1.75rem 1rem 1.5rem
+    .header-eyebrow
+      margin-bottom 0.75rem
+      .eyebrow-line
+        width 24px
+      .eyebrow-text
+        font-size 0.65rem
+        letter-spacing 0.14em
     .post-title
-      font-size 1.35rem
+      font-size 1.7rem
+      line-height 1.35
+      margin-bottom 0.9rem
+    .header-ornament
+      margin-bottom 1rem
+      .ornament-line
+        width 20px
+      .ornament-diamond
+        width 6px
+        height 6px
     .article-meta-row
       flex-direction column
       align-items center
-      gap 0.5rem
+      gap 0.75rem
+      padding-top 1rem
+    .article-author, .article-date, .article-reading
+      font-size 0.85rem
 
   .article-content
-    padding 1rem
+    padding 1.1rem
     border-radius 6px
+    & > p:first-of-type
+      font-size 1rem
     h2
       font-size 1.2rem
     h3
       font-size 1.05rem
 
   .copyright-notice
-    padding 1rem
+    padding 1rem 1rem 1rem 3.4rem
+    .notice-icon-wrap
+      left 0.6rem
+      top 0.85rem
+      width 1.9rem
+      height 1.9rem
+      font-size 0.9rem
     .notice-content
       font-size 0.9rem
   .article-tags
     padding 1rem
+    .tags-inner
+      gap 0.4rem
 
   .archive-title
     font-size 1.4rem

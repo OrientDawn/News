@@ -394,58 +394,136 @@
     border-radius 8px
 
 .article-header-card
-  padding 3rem 0
-  margin-bottom 2rem
+  position relative
+  padding 3.25rem 4rem 2.75rem
+  margin 0 0 2.5rem
   text-align center
-  max-width 800px
-  margin-left auto
-  margin-right auto
+  background linear-gradient(135deg, #ffffff 0%, #fafbfd 60%, #f6f3ec 100%)
+  border-radius 0
+  overflow hidden
+  width 100vw
+  margin-left calc(50% - 50vw)
+  margin-right calc(50% - 50vw)
+  max-width none
 
-  .article-category-bar
+  &:before
+    content ""
+    position absolute
+    top -30%
+    left -10%
+    width 480px
+    height 480px
+    background radial-gradient(circle, rgba(0, 102, 204, 0.06) 0%, transparent 70%)
+    border-radius 50%
+    pointer-events none
+
+  &:after
+    content ""
+    position absolute
+    bottom -40%
+    right -10%
+    width 560px
+    height 560px
+    background radial-gradient(circle, rgba(201, 169, 97, 0.1) 0%, transparent 70%)
+    border-radius 50%
+    pointer-events none
+
+  .header-eyebrow
+    position relative
+    z-index 1
+    display flex
+    align-items center
+    justify-content center
+    gap 0.9rem
     margin-bottom 1.5rem
 
-  .article-category-tag
-    display inline-block
-    padding 0.4rem 1rem
-    background #f5f0e6
-    color #b8964a
-    border-radius 20px
-    font-size 0.9rem
-    margin-right 0.5rem
-    text-decoration none
-    transition all 0.2s ease
+    .eyebrow-line
+      width 48px
+      height 1px
+      background linear-gradient(90deg, transparent, #c9a961)
 
-    &:hover
-      background #c9a961
-      color white
+      &:last-child
+        background linear-gradient(90deg, #c9a961, transparent)
+
+    .eyebrow-text
+      font-size 0.8rem
+      font-weight 600
+      letter-spacing 0.18em
+      text-transform uppercase
+      color #b8964a
 
   .post-title
-    font-size 2.5rem
-    font-weight 700
+    position relative
+    z-index 1
+    font-size 2.6rem
+    font-weight 800
     color $light-font-color
-    margin-bottom 1.5rem
-    line-height 1.35
+    margin 0 auto 1.5rem
+    max-width 900px
+    line-height 1.25
+    letter-spacing -0.5px
+
+  .header-ornament
+    position relative
+    z-index 1
+    display flex
+    align-items center
+    justify-content center
+    gap 0.5rem
+    margin 0 auto 1.75rem
+
+    .ornament-dot
+      width 5px
+      height 5px
+      border-radius 50%
+      background #c9a961
+      opacity 0.55
+
+    .ornament-line
+      width 32px
+      height 1px
+      background linear-gradient(90deg, transparent, rgba(201, 169, 97, 0.6), transparent)
+
+    .ornament-diamond
+      width 8px
+      height 8px
+      background linear-gradient(135deg, #c9a961, #0066cc)
+      transform rotate(45deg)
+      box-shadow 0 0 8px rgba(201, 169, 97, 0.4)
 
   .article-meta-row
+    position relative
+    z-index 1
     display flex
     justify-content center
     gap 2rem
     flex-wrap wrap
     align-items center
     padding-top 1.5rem
-    border-top 1px solid $light-border-color
+    border-top 1px solid rgba(201, 169, 97, 0.18)
 
-  .article-author, .article-date
+  .article-author, .article-date, .article-reading
     display flex
     align-items center
     gap 0.5rem
     font-size 0.95rem
     color $light-font-secondary-color
+    transition color 0.2s ease
 
     .meta-icon
+      display inline-flex
+      align-items center
+      justify-content center
+      width 28px
+      height 28px
+      background linear-gradient(135deg, rgba(201, 169, 97, 0.16), rgba(201, 169, 97, 0.06))
+      border-radius 50%
       color #c9a961
+      font-size 0.85rem
+      box-shadow 0 2px 6px rgba(201, 169, 97, 0.15)
 
 .article-content
+  position relative
   background white
   border-radius 12px
   padding 3rem 4rem
@@ -456,96 +534,266 @@
   max-width none
   width calc(100% + 6rem)
 
+  & > p:first-of-type
+    font-size 1.15rem
+    line-height 1.85
+    color $light-font-color
+    font-weight 500
+    margin-bottom 1.5rem
+
   h2
-    font-size 1.5rem
-    font-weight 600
-    margin-top 2rem
-    margin-bottom 1rem
-    padding-left 0.75rem
+    position relative
+    font-size 1.6rem
+    font-weight 700
+    margin-top 2.5rem
+    margin-bottom 1.2rem
+    padding-left 1rem
+    color $light-font-color
     border-left 4px solid $light-global-link-hover-color
 
+    &:after
+      content ""
+      position absolute
+      left -4px
+      bottom -2px
+      width 4px
+      height 12px
+      background #c9a961
+
   h3
+    position relative
     font-size 1.3rem
     font-weight 600
-    margin-top 1.5rem
-    margin-bottom 0.8rem
+    margin-top 1.8rem
+    margin-bottom 0.9rem
+    color $light-font-color
+
+    &:before
+      content ""
+      display inline-block
+      width 6px
+      height 6px
+      background #c9a961
+      margin-right 0.6rem
+      vertical-align middle
+      transform rotate(45deg)
+
+  h4
+    font-size 1.1rem
+    font-weight 600
+    margin-top 1.4rem
+    margin-bottom 0.7rem
+    color $light-font-color
 
   p
     margin-bottom 1rem
-    line-height 1.8
+    line-height 1.85
+    color $light-font-color
 
   blockquote
-    border-left 4px solid $light-global-link-hover-color
-    background #f5f8fa
-    padding 1rem 1.5rem
-    margin 1.5rem 0
-    border-radius 0 8px 8px 0
+    position relative
+    border-left none
+    background linear-gradient(135deg, #faf8f3, #f5f8fa)
+    padding 1.5rem 1.5rem 1.5rem 3rem
+    margin 1.8rem 0
+    border-radius 0 12px 12px 0
     color $light-font-secondary-color
+    box-shadow inset 4px 0 0 $light-global-link-hover-color
+
+    &:before
+      content "\f10d"
+      font-family "Font Awesome 6 Free", "FontAwesome", sans-serif
+      font-weight 900
+      position absolute
+      left 1rem
+      top 1.1rem
+      font-size 1.4rem
+      color #c9a961
+      opacity 0.6
+
+    p
+      margin-bottom 0
+      color $light-font-secondary-color
+      font-style italic
 
   ul, ol
-    margin-bottom 1rem
-    padding-left 1.5rem
+    margin-bottom 1.2rem
+    padding-left 1.6rem
 
-  li
-    margin-bottom 0.5rem
-    line-height 1.7
+    li
+      margin-bottom 0.55rem
+      line-height 1.75
+      position relative
+
+  ul li
+    list-style none
+
+    &:before
+      content ""
+      position absolute
+      left -1rem
+      top 0.7rem
+      width 5px
+      height 5px
+      border-radius 50%
+      background linear-gradient(135deg, #c9a961, #0066cc)
 
   a
     color $light-global-link-hover-color
-    text-decoration underline
+    text-decoration none
+    border-bottom 1px solid rgba(0, 102, 204, 0.3)
+    transition all 0.2s ease
+
+    &:hover
+      color #c9a961
+      border-bottom-color #c9a961
 
   img
     max-width 100%
+    border-radius 10px
+    margin 1.5rem 0
+    box-shadow 0 6px 20px rgba(0, 0, 0, 0.08)
+
+  table
+    width 100%
+    border-collapse collapse
+    margin 1.5rem 0
     border-radius 8px
-    margin 1rem 0
+    overflow hidden
+    box-shadow 0 2px 10px rgba(0, 0, 0, 0.04)
+
+    th
+      background linear-gradient(135deg, #c9a961, #b8964a)
+      color white
+      font-weight 600
+      padding 0.8rem 1rem
+      text-align left
+      font-size 0.92rem
+
+    td
+      padding 0.7rem 1rem
+      border-bottom 1px solid rgba(0, 0, 0, 0.04)
+      font-size 0.95rem
+
+    tr:nth-child(even) td
+      background #fafbfc
+
+    tr:hover td
+      background rgba(201, 169, 97, 0.06)
 
   code
-    background #f8f5ec
-    padding 0.2rem 0.4rem
+    background linear-gradient(135deg, #f8f5ec, #f5f0e6)
+    padding 0.2rem 0.45rem
     border-radius 4px
-    font-family monospace
+    font-family "JetBrains Mono", "Fira Code", monospace
+    font-size 0.875em
+    color #9c6f1e
+    border 1px solid rgba(201, 169, 97, 0.15)
 
   pre
+    position relative
     background #1a1a2e
     color #e8e8f0
-    padding 1rem
-    border-radius 8px
+    padding 1.2rem 1.4rem
+    border-radius 10px
     overflow-x auto
-    margin 1rem 0
+    margin 1.5rem 0
+    border 1px solid rgba(201, 169, 97, 0.12)
+    box-shadow 0 8px 24px rgba(26, 26, 46, 0.15)
+
+    &:before
+      content ""
+      position absolute
+      top 0
+      left 0
+      width 100%
+      height 3px
+      background linear-gradient(90deg, #c9a961, #0066cc)
 
     code
       background none
       padding 0
+      color inherit
+      border none
+      font-size 0.9rem
+      line-height 1.6
+
+  hr
+    border none
+    height 1px
+    background linear-gradient(90deg, transparent, rgba(201, 169, 97, 0.4), transparent)
+    margin 2.5rem 0
 
 .copyright-notice
-  background linear-gradient(135deg, #f5f8fa, #f5f0e6)
+  position relative
+  background linear-gradient(135deg, #fafbfd, #f7f3ec)
   border-radius 12px
-  padding 1.5rem 2rem
+  padding 1.6rem 2rem 1.5rem 4.5rem
   margin-bottom 2rem
   margin-left -3rem
   margin-right -3rem
   width calc(100% + 6rem)
-  border-left 4px solid $light-global-link-hover-color
+  box-shadow 0 2px 12px rgba(201, 169, 97, 0.08)
+  overflow hidden
+
+  &:before
+    content ""
+    position absolute
+    top 0
+    left 0
+    width 5px
+    height 100%
+    background linear-gradient(180deg, #c9a961, #0066cc)
+
+  &:after
+    content ""
+    position absolute
+    top -40px
+    right -40px
+    width 160px
+    height 160px
+    background radial-gradient(circle, rgba(201, 169, 97, 0.12) 0%, transparent 70%)
+    border-radius 50%
+    pointer-events none
+
+  .notice-icon-wrap
+    position absolute
+    left 1.2rem
+    top 1.4rem
+    width 2.4rem
+    height 2.4rem
+    border-radius 12px
+    background linear-gradient(135deg, #c9a961, #b8964a)
+    display flex
+    align-items center
+    justify-content center
+    color white
+    font-size 1.1rem
+    box-shadow 0 6px 14px rgba(201, 169, 97, 0.35)
 
   .notice-header
     display flex
     align-items center
     gap 0.5rem
-    margin-bottom 1rem
+    margin-bottom 0.8rem
 
-  .notice-icon
-    font-size 1.5rem
-    color $light-global-link-hover-color
-
-  .notice-header span:last-child
-    font-weight 600
-    color $light-font-color
+    span:last-child
+      font-weight 700
+      font-size 1.05rem
+      color $light-font-color
+      letter-spacing 0.02em
 
   .notice-content
-    font-size 0.95rem
-    line-height 1.8
+    font-size 0.92rem
+    line-height 1.85
     color $light-font-secondary-color
     word-break break-all
+
+    p
+      margin-bottom 0.6rem
+
+      &:last-child
+        margin-bottom 0
 
     a
       color $light-global-link-hover-color
@@ -555,38 +803,73 @@
       text-overflow ellipsis
       white-space nowrap
       max-width 100%
+      border-bottom 1px solid rgba(0, 102, 204, 0.3)
+      transition all 0.2s ease
+
+      &:hover
+        color #c9a961
+        border-bottom-color #c9a961
 
 .article-tags
   background white
   border-radius 12px
-  padding 1rem 2rem
-  margin-bottom 1rem
+  padding 1.25rem 2rem
+  margin-bottom 1.25rem
   margin-left -3rem
   margin-right -3rem
   width calc(100% + 6rem)
   box-shadow 0 2px 8px rgba(0, 0, 0, 0.05)
+  border 1px solid rgba(201, 169, 97, 0.08)
+
+  .tags-inner
+    display flex
+    align-items center
+    flex-wrap wrap
+    gap 0.6rem
 
   .tags-label
+    display inline-flex
+    align-items center
+    gap 0.5rem
     font-weight 600
     color $light-font-color
+    font-size 0.95rem
+
+    i
+      color #c9a961
 
   .tags-list
-    margin-left 0.5rem
+    margin-left 0.2rem
 
   .tag-item
-    display inline-block
-    padding 0.3rem 0.8rem
-    background #f5f8fa
+    display inline-flex
+    align-items center
+    padding 0.4rem 0.95rem
+    background linear-gradient(135deg, #f5f8fa, #f0f3f7)
     color $light-global-link-hover-color
     border-radius 20px
     font-size 0.85rem
-    margin-right 0.5rem
-    margin-bottom 0.5rem
-    transition all 0.2s ease
+    margin-right 0.4rem
+    margin-bottom 0.4rem
+    text-decoration none
+    border 1px solid transparent
+    transition all 0.3s cubic-bezier(0.4, 0, 0.2, 1)
+
+    &:before
+      content "#"
+      margin-right 0.25rem
+      color #c9a961
+      font-weight 600
 
     &:hover
-      background $light-global-link-hover-color
+      background linear-gradient(135deg, #c9a961, #b8964a)
       color white
+      border-color rgba(201, 169, 97, 0.3)
+      transform translateY(-2px)
+      box-shadow 0 6px 14px rgba(201, 169, 97, 0.3)
+
+      &:before
+        color rgba(255, 255, 255, 0.85)
 
   .no-tags
     color $light-font-secondary-color
@@ -594,39 +877,95 @@
 
 .article-nav
   display grid
-  grid-template-columns repeat(auto-fit, minmax(200px, 1fr))
-  gap 0.8rem
-  margin-bottom 1rem
+  grid-template-columns 1fr 1fr
+  gap 1rem
+  margin-bottom 1.25rem
   margin-left -3rem
   margin-right -3rem
   width calc(100% + 6rem)
 
   .nav-section
+    position relative
+    display flex
+    flex-direction column
+    justify-content center
+    gap 0.4rem
+    min-height 5.5rem
+    padding 1.1rem 1.4rem
     background white
-    border-radius 10px
-    padding 0.8rem 1.2rem
-    box-shadow 0 2px 8px rgba(0, 0, 0, 0.05)
+    border-radius 14px
+    box-shadow 0 2px 10px rgba(0, 0, 0, 0.04)
+    border 1px solid rgba(201, 169, 97, 0.08)
+    text-decoration none
+    overflow hidden
+    transition all 0.35s cubic-bezier(0.4, 0, 0.2, 1)
 
-  .nav-label
-    font-size 0.85rem
-    color $light-font-secondary-color
-    margin-bottom 0.5rem
-    display block
-
-  .nav-link
-    display block
-    font-size 0.95rem
-    color $light-font-color
-    line-height 1.5
-    transition all 0.2s ease
+    &:before
+      content ""
+      position absolute
+      top 0
+      left 0
+      width 4px
+      height 100%
+      background linear-gradient(180deg, #c9a961, #0066cc)
+      transform scaleY(0)
+      transform-origin top
+      transition transform 0.35s ease
 
     &:hover
-      color $light-global-link-hover-color
+      transform translateY(-4px)
+      box-shadow 0 14px 30px rgba(201, 169, 97, 0.18)
+      border-color rgba(201, 169, 97, 0.22)
 
-  .nav-empty
-    font-size 0.9rem
-    color $light-font-secondary-color
-    font-style italic
+      &:before
+        transform scaleY(1)
+
+      .nav-title
+        color #c9a961
+
+    &.nav-next
+      text-align right
+
+      &:before
+        left auto
+        right 0
+        transform-origin top
+
+  .nav-direction
+    display inline-flex
+    align-items center
+    gap 0.4rem
+    font-size 0.78rem
+    font-weight 600
+    letter-spacing 0.06em
+    text-transform uppercase
+    color #b8964a
+
+  .nav-title
+    font-size 1rem
+    font-weight 600
+    color $light-font-color
+    line-height 1.5
+    display -webkit-box
+    -webkit-line-clamp 2
+    -webkit-box-orient vertical
+    overflow hidden
+    transition color 0.25s ease
+
+  .nav-disabled
+    cursor default
+    opacity 0.6
+
+    &:hover
+      transform none
+      box-shadow 0 2px 10px rgba(0, 0, 0, 0.04)
+      border-color rgba(201, 169, 97, 0.08)
+
+      .nav-title
+        color $light-font-color
+
+      &:before
+        transform scaleY(0)
 
 .article-actions
   display flex
@@ -637,10 +976,11 @@
   margin-left -3rem
   margin-right -3rem
   width calc(100% + 6rem)
-  padding 1.25rem 2rem
+  padding 1.4rem 2rem
   background white
   border-radius 12px
   box-shadow 0 2px 8px rgba(0, 0, 0, 0.05)
+  border 1px solid rgba(201, 169, 97, 0.08)
 
   .action-btn
     display inline-flex
@@ -648,35 +988,332 @@
     align-items center
     gap 0.5rem
     box-sizing border-box
-    padding 0.6rem 1.5rem
-    border-radius 8px
-    font-size 0.9rem
-    font-weight 500
-    transition all 0.25s ease
+    padding 0.7rem 1.7rem
+    border-radius 10px
+    font-size 0.95rem
+    font-weight 600
+    transition all 0.3s cubic-bezier(0.4, 0, 0.2, 1)
     cursor pointer
     border none
+    text-decoration none
 
     i
       font-size 0.85rem
 
   .btn-back
-    background #f5f8fa
+    background linear-gradient(135deg, #f5f8fa, #eef2f7)
     color $light-font-color
     border 1px solid $light-border-color
 
     &:hover
-      background $light-border-color
-      transform translateY(-2px)
-      box-shadow 0 4px 12px rgba(0, 0, 0, 0.08)
+      background linear-gradient(135deg, #c9a961, #b8964a)
+      color white
+      border-color rgba(201, 169, 97, 0.3)
+      transform translateY(-3px)
+      box-shadow 0 8px 18px rgba(201, 169, 97, 0.3)
 
   .btn-home
     background linear-gradient(135deg, $light-global-link-hover-color, $light-post-link-hover-color)
     color white
-    box-shadow 0 2px 6px rgba(0, 102, 204, 0.2)
+    box-shadow 0 4px 12px rgba(0, 102, 204, 0.25)
 
     &:hover
-      transform translateY(-2px)
-      box-shadow 0 6px 16px rgba(0, 102, 204, 0.3)
+      transform translateY(-3px)
+      box-shadow 0 10px 22px rgba(0, 102, 204, 0.35)
+
+  .btn-top
+    background linear-gradient(135deg, #f5f8fa, #eef2f7)
+    color $light-font-color
+    border 1px solid $light-border-color
+
+    &:hover
+      background linear-gradient(135deg, #0066cc, #0088ee)
+      color white
+      border-color rgba(0, 102, 204, 0.3)
+      transform translateY(-3px)
+      box-shadow 0 8px 18px rgba(0, 102, 204, 0.3)
+
+.article-end-ornament
+  display flex
+  align-items center
+  justify-content center
+  gap 1rem
+  margin 2.5rem 0 0.5rem
+
+  .end-line
+    width 80px
+    height 1px
+    background linear-gradient(90deg, transparent, rgba(201, 169, 97, 0.5), transparent)
+
+  .end-mark
+    width 34px
+    height 34px
+    display inline-flex
+    align-items center
+    justify-content center
+    border 1px solid rgba(201, 169, 97, 0.4)
+    border-radius 50%
+    font-size 0.85rem
+    font-weight 700
+    color #b8964a
+    background white
+    box-shadow 0 0 0 4px rgba(201, 169, 97, 0.06)
+
+.related-posts
+  background white
+  border-radius 14px
+  padding 1.6rem 2rem
+  margin-bottom 1.25rem
+  margin-left -3rem
+  margin-right -3rem
+  width calc(100% + 6rem)
+  box-shadow 0 2px 10px rgba(0, 0, 0, 0.05)
+  border 1px solid rgba(201, 169, 97, 0.08)
+
+  .related-header
+    display flex
+    align-items center
+    gap 0.75rem
+    margin-bottom 1.2rem
+
+    .related-header-icon
+      width 36px
+      height 36px
+      border-radius 10px
+      display inline-flex
+      align-items center
+      justify-content center
+      background linear-gradient(135deg, rgba(201, 169, 97, 0.16), rgba(201, 169, 97, 0.06))
+      color #c9a961
+      font-size 0.95rem
+
+    h3
+      font-size 1.15rem
+      font-weight 700
+      color $light-font-color
+      margin 0
+      white-space nowrap
+
+    .related-header-line
+      flex 1
+      height 1px
+      background linear-gradient(90deg, rgba(201, 169, 97, 0.3), transparent)
+
+  .related-grid
+    display grid
+    grid-template-columns repeat(auto-fit, minmax(200px, 1fr))
+    gap 1rem
+
+  .related-card
+    position relative
+    display flex
+    flex-direction column
+    gap 0.5rem
+    padding 1.1rem 1.2rem
+    background linear-gradient(135deg, #fafbfd, #f6f8fb)
+    border-radius 12px
+    text-decoration none
+    border 1px solid rgba(201, 169, 97, 0.1)
+    overflow hidden
+    transition all 0.35s cubic-bezier(0.4, 0, 0.2, 1)
+
+    &:before
+      content ""
+      position absolute
+      top 0
+      left 0
+      width 100%
+      height 2px
+      background linear-gradient(90deg, #c9a961, #0066cc)
+      transform scaleX(0)
+      transform-origin left
+      transition transform 0.35s ease
+
+    &:hover
+      transform translateY(-4px)
+      box-shadow 0 12px 26px rgba(201, 169, 97, 0.18)
+      border-color rgba(201, 169, 97, 0.25)
+      background white
+
+      &:before
+        transform scaleX(1)
+
+      .related-title
+        color #c9a961
+
+  .related-category
+    align-self flex-start
+    padding 0.2rem 0.7rem
+    background linear-gradient(135deg, rgba(201, 169, 97, 0.12), rgba(201, 169, 97, 0.06))
+    color #b8964a
+    border-radius 12px
+    font-size 0.75rem
+    font-weight 600
+
+  .related-title
+    font-size 0.98rem
+    font-weight 600
+    color $light-font-color
+    line-height 1.5
+    display -webkit-box
+    -webkit-line-clamp 2
+    -webkit-box-orient vertical
+    overflow hidden
+    transition color 0.25s ease
+
+  .related-date
+    font-size 0.8rem
+    color $light-font-secondary-color
+    display inline-flex
+    align-items center
+    gap 0.3rem
+    margin-top auto
+
+.article-share
+  position relative
+  background white
+  border-radius 12px
+  padding 1.4rem 2rem
+  margin-bottom 1.25rem
+  margin-left -3rem
+  margin-right -3rem
+  width calc(100% + 6rem)
+  box-shadow 0 2px 8px rgba(0, 0, 0, 0.05)
+  border 1px solid rgba(201, 169, 97, 0.08)
+
+  .share-label
+    display inline-flex
+    align-items center
+    gap 0.5rem
+    font-weight 600
+    color $light-font-color
+    font-size 0.95rem
+    margin-right 1rem
+
+    i
+      color #c9a961
+
+  .share-buttons
+    display inline-flex
+    align-items center
+    flex-wrap wrap
+    gap 0.6rem
+
+  .share-btn
+    display inline-flex
+    align-items center
+    justify-content center
+    gap 0.4rem
+    width 38px
+    height 38px
+    border-radius 50%
+    border 1px solid rgba(201, 169, 97, 0.15)
+    background linear-gradient(135deg, #fafbfd, #f3f5f8)
+    color $light-font-secondary-color
+    font-size 0.95rem
+    cursor pointer
+    text-decoration none
+    transition all 0.3s cubic-bezier(0.4, 0, 0.2, 1)
+    box-sizing border-box
+
+    &.share-copy
+      width auto
+      padding 0 1rem
+      border-radius 20px
+      background linear-gradient(135deg, #c9a961, #b8964a)
+      color white
+      border-color transparent
+      box-shadow 0 4px 12px rgba(201, 169, 97, 0.3)
+
+      .share-btn-text
+        font-size 0.85rem
+        font-weight 600
+
+      &:hover
+        transform translateY(-3px)
+        box-shadow 0 8px 18px rgba(201, 169, 97, 0.4)
+
+    &.share-weibo:hover
+      background linear-gradient(135deg, #e6162d, #c20c0c)
+      color white
+      border-color transparent
+      transform translateY(-3px)
+      box-shadow 0 6px 14px rgba(230, 22, 45, 0.35)
+
+    &.share-qq:hover
+      background linear-gradient(135deg, #12b7f5, #0e9adb)
+      color white
+      border-color transparent
+      transform translateY(-3px)
+      box-shadow 0 6px 14px rgba(18, 183, 245, 0.35)
+
+    &.share-wechat:hover
+      background linear-gradient(135deg, #2ecc71, #27ae60)
+      color white
+      border-color transparent
+      transform translateY(-3px)
+      box-shadow 0 6px 14px rgba(46, 204, 113, 0.35)
+
+    &.share-twitter:hover
+      background #000000
+      color white
+      border-color transparent
+      transform translateY(-3px)
+      box-shadow 0 6px 14px rgba(0, 0, 0, 0.35)
+
+    &.share-facebook:hover
+      background linear-gradient(135deg, #1877f2, #0e62d1)
+      color white
+      border-color transparent
+      transform translateY(-3px)
+      box-shadow 0 6px 14px rgba(24, 119, 242, 0.35)
+
+  .wechat-qr
+    position absolute
+    top 100%
+    right 2rem
+    margin-top 0.6rem
+    background white
+    border 1px solid rgba(201, 169, 97, 0.2)
+    border-radius 12px
+    padding 1rem
+    box-shadow 0 12px 30px rgba(0, 0, 0, 0.15)
+    text-align center
+    z-index 20
+
+    &[hidden]
+      display none
+
+    .qr-image img
+      width 140px
+      height 140px
+      border-radius 8px
+      display block
+
+    .qr-tip
+      margin-top 0.6rem
+      font-size 0.82rem
+      color $light-font-secondary-color
+
+  .share-toast
+    position fixed
+    bottom 2rem
+    left 50%
+    transform translateX(-50%) translateY(20px)
+    background rgba(26, 26, 46, 0.95)
+    color white
+    padding 0.7rem 1.4rem
+    border-radius 24px
+    font-size 0.9rem
+    opacity 0
+    pointer-events none
+    transition all 0.3s ease
+    z-index 10000
+    box-shadow 0 8px 24px rgba(0, 0, 0, 0.25)
+
+    &.show
+      opacity 1
+      transform translateX(-50%) translateY(0)
 
 .archive-page
   padding-top 1.5rem
