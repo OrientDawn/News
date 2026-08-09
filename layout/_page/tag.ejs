@@ -15,13 +15,6 @@
             <div class="news-grid">
                 <% page.posts.each(function (post) { %>
                     <article class="news-card">
-                        <!--
-                        <div class="news-category">
-                            <% post.categories.forEach(item => { %>
-                                <span class="category-tag"><%- item.name %></span>
-                            <% }) %>
-                        </div>
-                        -->
                         <h3 class="news-title">
                             <a href="<%- url_for(post.path) %>"><%= post.title %></a>
                         </h3>

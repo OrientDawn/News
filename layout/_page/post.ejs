@@ -46,6 +46,12 @@
                         <span><%- date(page.date, theme.date_format) %></span>
                     </span>
                 <% } %>
+                <% if(page.updated && new Date(page.updated).getTime() !== new Date(page.date).getTime()){ %>
+                    <span class="article-updated">
+                        <span class="meta-icon"><i class="fas fa-edit"></i></span>
+                        <span><%- date(page.updated, theme.date_format) %></span>
+                    </span>
+                <% } %>
                 <span class="article-reading">
                     <span class="meta-icon"><i class="fas fa-book-open"></i></span>
                     <span>约 <%= readTime %> 分钟阅读</span>
@@ -65,7 +71,6 @@
                 </div>
                 <div class="notice-content">
                     <p>本文由 <strong><%- config.author %></strong> 原创发布，全文文字、配图、数据、版式等全部内容知识产权归属启明曙光科技有限公司，受著作权法、民法典及相关国际公约保护，未经我方书面授权，任何机构、媒体、个人不得转载、摘编、篡改、商用发布。</p>
-                    <p>原文链接：<a href="<%- page.permalink %>"><%- page.permalink %></a></p>
                 </div>
             </section>
         <% } %>
