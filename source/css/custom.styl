@@ -96,23 +96,10 @@
     position relative
     overflow hidden
 
-    &:before
-      content ""
-      position absolute
-      top 0
-      left -100%
-      width 100%
-      height 3px
-      background linear-gradient(90deg, transparent, #c9a961, transparent)
-      transition left 0.5s ease
-
     &:hover
       transform translateY(-5px) scale(1.02)
       box-shadow 0 12px 32px rgba(201, 169, 97, 0.25)
       border-color rgba(201, 169, 97, 0.3)
-
-      &:before
-        left 100%
 
     span
       font-size 0.95rem
@@ -289,24 +276,10 @@
   position relative
   overflow hidden
 
-  &:before
-    content ""
-    position absolute
-    top 0
-    left 0
-    right 0
-    height 3px
-    background linear-gradient(90deg, #c9a961, #0066cc)
-    opacity 0
-    transition opacity 0.3s ease
-
   &:hover
     transform translateY(-4px)
     box-shadow 0 12px 32px rgba(201, 169, 97, 0.15)
     border-color rgba(201, 169, 97, 0.15)
-
-    &:before
-      opacity 1
 
 .category-header
   display flex
@@ -530,6 +503,7 @@
   margin-right -3rem
   max-width none
   width calc(100% + 6rem)
+  overflow-wrap break-word
 
   & > p:first-of-type
     margin-bottom 1.5rem
@@ -538,20 +512,6 @@
     position relative
     font-size 1.6rem
     font-weight 700
-    margin-top 2.5rem
-    margin-bottom 1.2rem
-    padding-left 1rem
-    color $light-font-color
-    border-left 4px solid $light-global-link-hover-color
-
-    &:after
-      content ""
-      position absolute
-      left -4px
-      bottom -2px
-      width 4px
-      height 12px
-      background #c9a961
 
   h3
     position relative
@@ -638,6 +598,7 @@
     text-decoration none
     border-bottom 1px solid rgba(0, 102, 204, 0.3)
     transition all 0.2s ease
+    overflow-wrap anywhere
 
     &:hover
       color #c9a961
@@ -694,15 +655,6 @@
     border 1px solid rgba(201, 169, 97, 0.12)
     box-shadow 0 8px 24px rgba(26, 26, 46, 0.15)
 
-    &:before
-      content ""
-      position absolute
-      top 0
-      left 0
-      width 100%
-      height 3px
-      background linear-gradient(90deg, #c9a961, #0066cc)
-
     code
       background none
       padding 0
@@ -720,22 +672,16 @@
 .copyright-notice
   position relative
   background linear-gradient(135deg, #fafbfd, #f7f3ec)
-  padding 1.6rem 2rem 1.5rem 4.5rem
+  padding 1.4rem 1.8rem 1.3rem
   margin-bottom 2rem
   margin-left -3rem
   margin-right -3rem
   width calc(100% + 6rem)
   box-shadow 0 2px 12px rgba(201, 169, 97, 0.08)
   overflow hidden
-
-  &:before
-    content ""
-    position absolute
-    top 0
-    left 0
-    width 5px
-    height 100%
-    background linear-gradient(180deg, #c9a961, #0066cc)
+  display flex
+  flex-wrap wrap
+  align-items flex-start
 
   &:after
     content ""
@@ -749,25 +695,27 @@
     pointer-events none
 
   .notice-icon-wrap
-    position absolute
-    left 1.2rem
-    top 1.4rem
-    width 2.4rem
-    height 2.4rem
-    border-radius 12px
+    position static
+    width 2.2rem
+    height 2.2rem
+    flex-shrink 0
+    margin-right 0.6rem
+    border-radius 10px
     background linear-gradient(135deg, #c9a961, #b8964a)
     display flex
     align-items center
     justify-content center
     color white
-    font-size 1.1rem
-    box-shadow 0 6px 14px rgba(201, 169, 97, 0.35)
+    font-size 1rem
+    box-shadow 0 4px 10px rgba(201, 169, 97, 0.35)
 
   .notice-header
     display flex
     align-items center
     gap 0.5rem
     margin-bottom 0.8rem
+    flex 1
+    min-width 0
 
     span:last-child
       font-weight 700
@@ -780,6 +728,8 @@
     line-height 1.85
     color $light-font-secondary-color
     word-break break-all
+    flex 1 1 100%
+    min-width 0
 
     p
       margin-bottom 0.6rem
@@ -1096,26 +1046,11 @@
     overflow hidden
     transition all 0.35s cubic-bezier(0.4, 0, 0.2, 1)
 
-    &:before
-      content ""
-      position absolute
-      top 0
-      left 0
-      width 100%
-      height 2px
-      background linear-gradient(90deg, #c9a961, #0066cc)
-      transform scaleX(0)
-      transform-origin left
-      transition transform 0.35s ease
-
     &:hover
       transform translateY(-4px)
       box-shadow 0 12px 26px rgba(201, 169, 97, 0.18)
       border-color rgba(201, 169, 97, 0.25)
       background white
-
-      &:before
-        transform scaleX(1)
 
       .related-title
         color #c9a961
@@ -1344,7 +1279,6 @@
 
   .archive-news-card
     background white
-    border-radius 20px
     padding 1.6rem 1.8rem 1.1rem
     margin-bottom 1.5rem
     box-shadow 0 4px 20px rgba(0, 0, 0, 0.06)
@@ -1573,6 +1507,8 @@
     justify-content space-between
     align-items center
     margin-bottom 1.2rem
+    padding 0 2rem
+    display:none
 
     h2
       font-size 1.4rem
@@ -1612,26 +1548,12 @@
     overflow hidden
     font-size clamp(12px, 1rem, 24px) !important
 
-    &:before
-      content ""
-      position absolute
-      top 0
-      left 0
-      width 100%
-      height 2px
-      background linear-gradient(90deg, #c9a961, #0066cc)
-      transform scaleX(0)
-      transition transform 0.3s ease
-
     &:hover
       background linear-gradient(135deg, #c9a961, #b8964a)
       color white
       transform translateY(-3px) scale(1.05)
       box-shadow 0 8px 20px rgba(201, 169, 97, 0.35)
       border-color rgba(201, 169, 97, 0.3)
-
-      &:before
-        transform scaleX(1)
 
     .tag-count
       font-size 0.75rem
@@ -1666,24 +1588,10 @@
   position relative
   overflow hidden
 
-  &:before
-    content ""
-    position absolute
-    top 0
-    left 0
-    right 0
-    height 4px
-    background linear-gradient(90deg, #c9a961, #0066cc, #6bb89a)
-    opacity 0
-    transition opacity 0.3s ease
-
   &:hover
     transform translateY(-6px) scale(1.02)
     box-shadow 0 12px 32px rgba(201, 169, 97, 0.25)
     border-color rgba(201, 169, 97, 0.2)
-
-    &:before
-      opacity 1
 
   .stat-icon
     width 60px
@@ -1844,7 +1752,6 @@
   margin-bottom 2.5rem
   padding 1.2rem 1.5rem
   background white
-  border-radius 16px
   box-shadow 0 4px 20px rgba(0, 0, 0, 0.06)
   flex-wrap wrap
   border 1px solid rgba(201, 169, 97, 0.08)
@@ -1896,4 +1803,3 @@
 
   p
     font-size 1.1rem
-

@@ -1,6 +1,7 @@
 .post-content
   padding-top 2rem
   text-align justify
+  overflow-wrap break-word
 
   h2,
   h3,
@@ -10,13 +11,9 @@
     padding-top .8em
     padding-bottom .3em
   h1::before
-       content "#"
-       margin-right 5px
-       color $light-post-link-color
+       content ""
   h2::before
-       content "#"
-       margin-right 5px
-       color $light-post-link-color
+       content ""
 
   h3::before
        content "|"
@@ -29,6 +26,8 @@
 
   a
     color $light-post-link-color
+    word-break break-all
+    overflow-wrap break-word
 
   a:hover
     color $light-post-link-hover-color
