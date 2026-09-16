@@ -2,7 +2,6 @@
     <div class="reading-progress">
         <div class="progress-bar" id="progress-bar"></div>
     </div>
-
     <%
         var stripHtml = function(html){ return String(html || '').replace(/<[^>]*>/g, '').replace(/\s+/g, '').trim(); };
         var readTime = Math.max(1, Math.ceil(stripHtml(page.content).length / 400));
@@ -22,7 +21,7 @@
         <header class="article-header-card">
             <div class="header-eyebrow">
                 <span class="eyebrow-line"></span>
-                <span class="eyebrow-text">正文</span>
+                <span class="eyebrow-text">新闻正文</span>
                 <span class="eyebrow-line"></span>
             </div>
             <h1 class="post-title"><%= page.title %></h1>
@@ -43,13 +42,13 @@
                 <% if(page.date && theme.post_date_enable){ %>
                     <span class="article-date">
                         <span class="meta-icon"><i class="fas fa-calendar"></i></span>
-                        <span><%- date(page.date, theme.date_format) %></span>
+                        <span><%- date(page.date, 'YYYY年M月D日') %></span>
                     </span>
                 <% } %>
                 <% if(page.updated && new Date(page.updated).getTime() !== new Date(page.date).getTime()){ %>
                     <span class="article-updated">
                         <span class="meta-icon"><i class="fas fa-edit"></i></span>
-                        <span><%- date(page.updated, theme.date_format) %></span>
+                        <span><%- date(page.updated, 'YYYY年M月D日') %></span>
                     </span>
                 <% } %>
                 <span class="article-reading">
@@ -58,69 +57,17 @@
                 </span>
             </div>
         </header>
-
         <div class="post-content article-content">
             <%- page.content %>
         </div>
-
         <% if(theme.post_copyright_enable){ %>
-            <section class="copyright-notice">
-                <div class="notice-icon-wrap"><i class="fas fa-copyright"></i></div>
-                <div class="notice-header">
-                    <span>版权声明</span>
-                </div>
-                <div class="notice-content">
-                    <p>本文由 <strong><%- config.author %></strong> 原创发布，全文文字、配图、数据、版式等全部内容知识产权归属启明曙光科技有限公司，受著作权法、民法典及相关国际公约保护，未经我方书面授权，任何机构、媒体、个人不得转载、摘编、篡改、商用发布。</p>
-                </div>
-            </section>
-        <% } %>
-
-        <section class="post-tags article-tags">
-            <div class="tags-inner">
-                <span class="tags-label">
-                    <i class="fas fa-tags"></i>
-                    <span>本文标签</span>
-                </span>
-                <span class="tags-list">
-                    <% if(page.tags.length!==0){%>
-                    <% page.tags.forEach(item=>{ %>
-                        <a href="<%- url_for(item.path) %>" class="tag-item"><%- item.name %></a>
-                    <% }) %>
-                    <% } else { %>
-                        <span class="no-tags">暂无标签</span>
-                    <% } %>
-                </span>
+        <section class="copyright-notice">
+            <div class="notice-icon-wrap"><i class="fas fa-copyright"></i></div>
+            <div class="notice-header">
+                <span>版权声明</span>
             </div>
-        </section>
-
-        <section class="article-nav">
-            <a class="nav-section nav-prev<% if(!post.prev){ %> nav-disabled<% } %>"<% if(post.prev){ %> rel="prev" href="<%- url_for(post.prev.path)%>"<% } %>>
-                <span class="nav-direction"><i class="fas fa-arrow-left"></i> 上一篇</span>
-                <span class="nav-title"><% if(post.prev){ %><%- post.prev.title%><% } else { %>已是最早文章<% } %></span>
-            </a>
-            <a class="nav-section nav-next<% if(!post.next){ %> nav-disabled<% } %>"<% if(post.next){ %> rel="next" href="<%- url_for(post.next.path)%>"<% } %>>
-                <span class="nav-direction">下一篇 <i class="fas fa-arrow-right"></i></span>
-                <span class="nav-title"><% if(post.next){ %><%- post.next.title%><% } else { %>已是最新文章<% } %></span>
-            </a>
-        </section>
-
-        <% if(relatedPosts.length){ %>
-        <section class="related-posts">
-            <div class="related-header">
-                <span class="related-header-icon"><i class="fas fa-bookmark"></i></span>
-                <h3>相关推荐</h3>
-                <span class="related-header-line"></span>
-            </div>
-            <div class="related-grid">
-                <% relatedPosts.forEach(function(p){ %>
-                <a href="<%- url_for(p.path) %>" class="related-card">
-                    <span class="related-category">
-                        <% if(p.categories && p.categories.length){ %><%- p.categories.first().name %><% } else { %>文章<% } %>
-                    </span>
-                    <span class="related-title"><%- p.title %></span>
-                    <span class="related-date"><i class="far fa-calendar"></i> <%- date(p.date, theme.date_format) %></span>
-                </a>
-                <% }) %>
+            <div class="notice-content">
+                <p>本文由 <strong><%- config.author %></strong> 原创发布，全文文字、配图、数据、版式等全部内容知识产权归属北京启明曙光科技有限公司，受著作权法、民法典及相关国际公约保护，未经我方书面授权，任何机构、媒体、个人不得转载、摘编、篡改、商用发布。</p>
             </div>
         </section>
         <% } %>

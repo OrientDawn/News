@@ -79,7 +79,7 @@
             <div class="category-list">
                 <% site.categories.each(function(cat) { %>
                     <% if (cat.name === '公司动态') { %>
-                        <% cat.posts.slice(0, 5).each(function(post) { %>
+                        <% cat.posts.sort('date', 'desc').slice(0, 5).each(function(post) { %>
                             <a href="<%- url_for(post.path) %>" class="category-item">
                                 <span class="item-title"><%= post.title %></span>
                                 <span class="item-date"><%- date(post.date, 'MM-DD') %></span>
@@ -99,7 +99,7 @@
             <div class="category-list">
                 <% site.categories.each(function(cat) { %>
                     <% if (cat.name === '行业资讯') { %>
-                        <% cat.posts.slice(0, 5).each(function(post) { %>
+                        <% cat.posts.sort('date', 'desc').slice(0, 5).each(function(post) { %>
                             <a href="<%- url_for(post.path) %>" class="category-item">
                                 <span class="item-title"><%= post.title %></span>
                                 <span class="item-date"><%- date(post.date, 'MM-DD') %></span>
@@ -119,7 +119,7 @@
             <div class="category-list">
                 <% site.categories.each(function(cat) { %>
                     <% if (cat.name === '通知公告') { %>
-                        <% cat.posts.slice(0, 5).each(function(post) { %>
+                        <% cat.posts.sort('date', 'desc').slice(0, 5).each(function(post) { %>
                             <a href="<%- url_for(post.path) %>" class="category-item">
                                 <span class="item-title"><%= post.title %></span>
                                 <span class="item-date"><%- date(post.date, 'MM-DD') %></span>
